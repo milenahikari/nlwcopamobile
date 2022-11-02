@@ -5,20 +5,20 @@ import * as WebBrowser from "expo-web-browser";
 
 WebBrowser.maybeCompleteAuthSession();
 
-type UserProps = {
+interface UserProps {
   name: string;
   avatarUrl: string;
-};
+}
 
-export type AuthContextDataProps = {
+export interface AuthContextDataProps {
   user: UserProps;
   isUserLoading: boolean;
   signIn: () => Promise<void>;
-};
+}
 
-type AutProviderProps = {
+interface AutProviderProps {
   children: ReactNode;
-};
+}
 
 export const AuthContext = createContext({} as AuthContextDataProps);
 
