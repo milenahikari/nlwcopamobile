@@ -25,7 +25,7 @@ interface AutProviderProps {
 export const AuthContext = createContext({} as AuthContextDataProps);
 
 export function AuthContextProvider({ children }: AutProviderProps) {
-  const [isUserLoading, setUserLoading] = useState(false);
+  const [isUserLoading, setIsUserLoading] = useState(false);
   const [user, setUser] = useState<UserProps>({} as UserProps);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -37,19 +37,19 @@ export function AuthContextProvider({ children }: AutProviderProps) {
 
   async function signIn() {
     try {
-      setUserLoading(true);
+      setIsUserLoading(true);
 
       await promptAsync();
     } catch (error) {
       throw error;
     } finally {
-      setUserLoading(false);
+      setIsUserLoading(false);
     }
   }
 
   async function signInWithGoogle(accessToken: string) {
     try {
-      setUserLoading(true);
+      setIsUserLoading(true);
       const tokenResponse = await api.post("/users", { accessToken });
       api.defaults.headers.common[
         "Authorization"
@@ -61,7 +61,7 @@ export function AuthContextProvider({ children }: AutProviderProps) {
       console.log(error);
       throw error;
     } finally {
-      setUserLoading(false);
+      setIsUserLoading(false);
     }
   }
 
